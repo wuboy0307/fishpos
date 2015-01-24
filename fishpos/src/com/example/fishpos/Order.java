@@ -1,40 +1,53 @@
 package com.example.fishpos;
 
+import java.math.BigDecimal;
+
 public class Order {
 	int receiptNo;
-	String name;
+	String bname;
 	String fishType;
-	long pricePerPound;
+	long date;
+	double pricePerPound;
 	double totalWeight;
-	long amountPaid;
+	double amountPaid;
 	
 	public Order() {
 		
 	}
 	
-	public Order(String name, String fishType, long pricePerPound, double totalWeight, long amountPaid) {
+	public Order(String bname, String fishType, double pricePerPound, double totalWeight, double amountPaid) {
 		this.receiptNo = 0;
-		this.name = name;
+		this.date = 0;
+		this.bname = bname;
 		this.fishType = fishType;
 		this.pricePerPound = pricePerPound;
 		this.totalWeight = totalWeight;
 		this.amountPaid = amountPaid;
 	}
 	
-	public Order(int receiptNo, String name, String fishType, long pricePerPound, double totalWeight, long amountPaid) {
+	public Order(int receiptNo, long date, String bname, String fishType, double pricePerPound, double totalWeight, double amountPaid) {
 		this.receiptNo = receiptNo;
-		this.name = name;
+		this.date = date;
+		this.bname = bname;
 		this.fishType = fishType;
 		this.pricePerPound = pricePerPound;
 		this.totalWeight = totalWeight;
 		this.amountPaid = amountPaid;
 	}
 	
-	public long getAmountPaid() {
+	public long getDate() {
+		return this.date;
+	}
+	
+	public void setDate(long date) {
+		this.date = date;
+	}
+	
+	public double getAmountPaid() {
 		return this.amountPaid;
 	}
 	
-	public void setAmountPaid(long amountPaid) {
+	public void setAmountPaid(double amountPaid) {
 		this.amountPaid = amountPaid;
 	}
 	
@@ -47,11 +60,11 @@ public class Order {
 	}
 	
 	public String getName() {
-		return this.name;
+		return this.bname;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String bname) {
+		this.bname = bname;
 	}
 	
 	public String getFishType() {
@@ -66,7 +79,7 @@ public class Order {
 		return this.pricePerPound;
 	}
 	
-	public void setPricePerPound(long pricePerPound) {
+	public void setPricePerPound(double pricePerPound) {
 		this.pricePerPound = pricePerPound;
 	}
 	
@@ -77,4 +90,9 @@ public class Order {
 	public void setTotalWeight(double totalWeight) {
 		this.totalWeight = totalWeight;
 	}
+	
+	@Override
+    public String toString () {
+        return "Boat: " + this.bname + " Fish Type: " + this.fishType + " Amount Paid: $" + this.amountPaid;
+    }
 }

@@ -3,6 +3,8 @@ package com.example.fishpos;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
@@ -15,10 +17,14 @@ public class MainActivity extends Activity {
     Fragment customertab = new CustomerTab();
     Fragment cashcountertab = new CashCounterTab();
     
+    SharedPreferences prefs;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        prefs = this.getSharedPreferences("CASH_COUNTER", Context.MODE_PRIVATE);
  
         ActionBar actionBar = getActionBar();
  

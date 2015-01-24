@@ -1,6 +1,8 @@
 package com.example.fishpos;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
@@ -37,59 +39,67 @@ public class ReportTab extends Fragment {
         // Spinner Drop down elements
         allOrdersList = db.getAllOrders();
         
-        TableRow tr_head2 = new TableRow(getActivity());
-        tr_head2.setId(10);
-        tr_head2.setBackgroundColor(Color.GRAY);
+        TableRow tr_head = new TableRow(getActivity());
+        tr_head.setId(24);
+        tr_head.setBackgroundColor(Color.DKGRAY);
         
         TextView headReceiptNo = new TextView(getActivity());
-        headReceiptNo.setId(30);
-        headReceiptNo.setText("Receipt Number");
+        headReceiptNo.setId(25);
+        headReceiptNo.setText("Receipt #");
         headReceiptNo.setTextColor(Color.WHITE);
         headReceiptNo.setTextSize(25);
         headReceiptNo.setPadding(5, 5, 5, 5);
-        tr_head2.addView(headReceiptNo);// add the column to the table row here
+        tr_head.addView(headReceiptNo);// add the column to the table row here
         
-        TextView headName = new TextView(getActivity());
-        headName.setId(31);
-        headName.setText("Name");
-        headName.setTextColor(Color.WHITE);
-        headName.setTextSize(25);
-        headName.setPadding(5, 5, 5, 5);
-        tr_head2.addView(headName);// add the column to the table row here
-
+        TextView headDate = new TextView(getActivity());
+        headDate.setId(25);
+        headDate.setText("Date");
+        headDate.setTextColor(Color.WHITE);
+        headDate.setTextSize(25);
+        headDate.setPadding(5, 5, 5, 5);
+        tr_head.addView(headDate);// add the column to the table row here
+        
+        TextView headBoatName = new TextView(getActivity());
+        headBoatName.setId(25);
+        headBoatName.setText("Boat Name");
+        headBoatName.setTextColor(Color.WHITE);
+        headBoatName.setTextSize(25);
+        headBoatName.setPadding(5, 5, 5, 5);
+        tr_head.addView(headBoatName);// add the column to the table row here
+        
         TextView headFishType = new TextView(getActivity());
-        headFishType.setId(32);// define id that must be unique
-        headFishType.setText("Fish Type"); // set the text for the header 
-        headFishType.setTextColor(Color.WHITE); // set the color
+        headFishType.setId(25);
+        headFishType.setText("Fish Type");
+        headFishType.setTextColor(Color.WHITE);
         headFishType.setTextSize(25);
-        headFishType.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head2.addView(headFishType); // add the column to the table row here
+        headFishType.setPadding(5, 5, 5, 5);
+        tr_head.addView(headFishType);// add the column to the table row here
         
-        TextView headPricePerPound = new TextView(getActivity());
-        headPricePerPound.setId(33);// define id that must be unique
-        headPricePerPound.setText("Price/lb"); // set the text for the header 
-        headPricePerPound.setTextColor(Color.WHITE); // set the color
-        headPricePerPound.setTextSize(25);
-        headPricePerPound.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head2.addView(headPricePerPound); // add the column to the table row here
+        TextView headPrice = new TextView(getActivity());
+        headPrice.setId(25);
+        headPrice.setText("Price/lb");
+        headPrice.setTextColor(Color.WHITE);
+        headPrice.setTextSize(25);
+        headPrice.setPadding(5, 5, 5, 5);
+        tr_head.addView(headPrice);// add the column to the table row here
         
-        TextView headTotalWeight = new TextView(getActivity());
-        headTotalWeight.setId(34);// define id that must be unique
-        headTotalWeight.setText("Weight (lbs)"); // set the text for the header 
-        headTotalWeight.setTextSize(25);
-        headTotalWeight.setTextColor(Color.WHITE); // set the color
-        headTotalWeight.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head2.addView(headTotalWeight); // add the column to the table row here
+        TextView headWeight = new TextView(getActivity());
+        headWeight.setId(25);
+        headWeight.setText("Weight (lbs)");
+        headWeight.setTextColor(Color.WHITE);
+        headWeight.setTextSize(25);
+        headWeight.setPadding(5, 5, 5, 5);
+        tr_head.addView(headWeight);// add the column to the table row here
         
         TextView headAmountPaid = new TextView(getActivity());
-        headAmountPaid.setId(35);// define id that must be unique
-        headAmountPaid.setText("Amount Paid"); // set the text for the header 
+        headAmountPaid.setId(25);
+        headAmountPaid.setText("Amount Paid");
+        headAmountPaid.setTextColor(Color.WHITE);
         headAmountPaid.setTextSize(25);
-        headAmountPaid.setTextColor(Color.WHITE); // set the color
-        headAmountPaid.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head2.addView(headAmountPaid); // add the column to the table row here
+        headAmountPaid.setPadding(5, 5, 5, 5);
+        tr_head.addView(headAmountPaid);// add the column to the table row here
         
-        orderTable.addView(tr_head2);
+        orderTable.addView(tr_head);
         
         int count = 0;
         
@@ -97,30 +107,51 @@ public class ReportTab extends Fragment {
         {
         	TableRow row = new TableRow(getActivity());
         	
-        	if(count % 2 != 0) {
-        		row.setBackgroundColor(Color.GRAY);
-        	}
+        	row.setBackgroundColor(Color.LTGRAY);
         	
             int receiptNo = allOrdersList.get(i).getReceiptNo();
+            long date = allOrdersList.get(i).getDate();
             String name = allOrdersList.get(i).getName();
             String fishType = allOrdersList.get(i).getFishType();
-            double pricePerPound = allOrdersList.get(i).getPricePerPound() / 100;
+            double pricePerPound = allOrdersList.get(i).getPricePerPound();
             double weight = allOrdersList.get(i).getTotalWeight();
-            double amountPaid = allOrdersList.get(i).getAmountPaid() / 100;
+            double amountPaid = allOrdersList.get(i).getAmountPaid();
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+            String dateFormatted = sdf.format(new Date(date*1000));
+            
+            
             TextView tvReceiptNo = new TextView(getActivity());
+            tvReceiptNo.setTextColor(Color.BLACK);
+            tvReceiptNo.setTextSize(18);
             tvReceiptNo.setText("" + receiptNo);
+            TextView tvDate = new TextView(getActivity());
+            tvDate.setTextColor(Color.BLACK);
+            tvDate.setTextSize(18);
+            tvDate.setText(dateFormatted);
             TextView tvName = new TextView(getActivity());
+            tvName.setTextColor(Color.BLACK);
+            tvName.setTextSize(18);
             tvName.setText(name);
             TextView tvFishType = new TextView(getActivity());
+            tvFishType.setTextColor(Color.BLACK);
+            tvFishType.setTextSize(18);
             tvFishType.setText(fishType);
             TextView tvPricePerPound = new TextView(getActivity());
-            tvPricePerPound.setText("$" + pricePerPound);
+            tvPricePerPound.setTextColor(Color.BLACK);
+            tvPricePerPound.setTextSize(18);
+            tvPricePerPound.setText(String.format("$%.2f", pricePerPound));
             TextView tvWeight = new TextView(getActivity());
+            tvWeight.setTextColor(Color.BLACK);
+            tvWeight.setTextSize(18);
             tvWeight.setText(String.valueOf(weight));
             TextView tvAmountPaid = new TextView(getActivity());
-            tvAmountPaid.setText("$" + amountPaid);
+            tvAmountPaid.setTextColor(Color.BLACK);
+            tvAmountPaid.setTextSize(18);
+            tvAmountPaid.setText(String.format("$%.2f", amountPaid));
             
             row.addView(tvReceiptNo);
+            row.addView(tvDate);
             row.addView(tvName);
             row.addView(tvFishType);
             row.addView(tvPricePerPound);

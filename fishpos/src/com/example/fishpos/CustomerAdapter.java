@@ -12,12 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
  
 /***** Adapter class extends with ArrayAdapter ******/
-public class CustomerAdapter extends ArrayAdapter<Customer>{
+public class CustomerAdapter extends ArrayAdapter<Boat>{
      
     private Context context;
     private ArrayList data;
     public Resources res;
-    Customer tempValues=null;
+    Boat tempValues=null;
     LayoutInflater inflater;
      
     /*************  CustomAdapter Constructor *****************/
@@ -56,7 +56,7 @@ public class CustomerAdapter extends ArrayAdapter<Customer>{
          
         /***** Get each Model object from Arraylist ********/
         tempValues = null;
-        tempValues = (Customer) data.get(position);
+        tempValues = (Boat) data.get(position);
          
         TextView label = (TextView) row.findViewById(R.id.cust_view);
          

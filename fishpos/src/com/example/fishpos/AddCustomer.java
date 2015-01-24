@@ -13,7 +13,8 @@ import android.widget.Toast;
 public class AddCustomer extends Activity implements OnClickListener{
 	Button addNewCust, clearFields;
 	EditText boatName, boatNumber, cptName, crewName1, crewName2, crewName3, cptSIN, cSIN1, cSIN2, cSIN3;
-	Customer newCustomer;
+	Boat newBoat;
+	Crew newCpt, newCrew1, newCrew2, newCrew3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +41,44 @@ public class AddCustomer extends Activity implements OnClickListener{
             public void onClick(View v) {
                 String newBoatName = boatName.getText().toString();
                 String newBoatNo = boatNumber.getText().toString();
-                String newCustName = custName.getText().toString();
+                String newCptName = cptName.getText().toString();
+                String newCrewName1 = crewName1.getText().toString();
+                String newCrewName2 = crewName2.getText().toString();
+                String newCrewName3 = crewName3.getText().toString();
+                String newCptSIN = cptSIN.getText().toString();
+                String newCrewSIN1 = cSIN1.getText().toString();
+                String newCrewSIN2 = cSIN2.getText().toString();
+                String newCrewSIN3 = cSIN3.getText().toString();
                 
                 //Toast.makeText(getApplicationContext(), "added", Toast.LENGTH_LONG).show();
                 
+                // database handler
+                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                
  
-                if (newBoatName.trim().length() > 0 && newCustName.trim().length() > 0 && newBoatNo.trim().length() > 0) {
-                	newCustomer = new Customer(newCustName, newBoatName, newBoatNo);
+                if (newBoatName.trim().length() > 0 && newCptName.trim().length() > 0 && newBoatNo.trim().length() > 0 && newCptSIN.trim().length() > 0) {
+                	newBoat = new Boat(newBoatNo, newBoatName, newCptName);
+                	newCpt = new Crew(newCptName, newCptSIN);
                 	
-                    // database handler
-                    DatabaseHandler db = new DatabaseHandler(
-                            getApplicationContext());
+                	// Optional fields to add crew members to specific boat
+                	if(!newCrewName1.matches("")) {
+                		newCrew1 = new Crew(newCrewName1, newCrewSIN1);
+                		db.addCrew(newCrew1, newBoatNo);
+                	}
+                	
+                	if(!newCrewName2.matches("")) {
+                		newCrew2 = new Crew(newCrewName2, newCrewSIN2);
+                		db.addCrew(newCrew2, newBoatNo);
+                	}
+                	
+                	if(!newCrewName3.matches("")) {
+                		newCrew3 = new Crew(newCrewName3, newCrewSIN3);
+                		db.addCrew(newCrew3, newBoatNo);
+                	}
  
-                    // inserting new label into database
-                    db.addCustomer(newCustomer);
+                    // Insert into database
+                	db.addCrew(newCpt, newBoatNo);
+                    db.addBoat(newBoat);
  
                     finish();
                 } else {
@@ -68,7 +93,16 @@ public class AddCustomer extends Activity implements OnClickListener{
 			 
             @Override
             public void onClick(View v) {
-            	
+            	boatName.setText("");
+            	boatNumber.setText("");
+            	cptName.setText("");
+            	crewName1.setText("");
+            	crewName2.setText("");
+            	crewName3.setText("");
+            	cptSIN.setText("");
+            	cSIN1.setText("");
+            	cSIN2.setText("");
+            	cSIN3.setText("");
             }
         });
 		
