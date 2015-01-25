@@ -93,6 +93,6 @@ public class Order {
 	
 	@Override
     public String toString () {
-        return "Boat: " + this.bname + " Fish Type: " + this.fishType + " Amount Paid: $" + this.amountPaid;
+        return "Boat: " + this.bname + "\n\nFish Type: " + this.fishType + "\n\nAmount Paid: $" + String.format("%.2f", this.amountPaid);
     }
 }

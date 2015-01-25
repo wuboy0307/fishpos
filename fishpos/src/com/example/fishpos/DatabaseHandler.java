@@ -245,6 +245,70 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact list
         return ordList;
     }
+    
+    // Getting All Orders sorted by date
+    // Date is in epoch timestamp
+    public ArrayList<Order> getAllOrdersByDate() {
+    	ArrayList<Order> ordList = new ArrayList<Order>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_ORDERS + " ORDER BY " + KEY_DATE + " DESC";
+     
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+     
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Order ord = new Order();
+                ord.setReceiptNo(Integer.parseInt(cursor.getString(0)));
+                ord.setDate(Long.parseLong(cursor.getString(1)));
+                ord.setName(cursor.getString(2));
+                ord.setFishType(cursor.getString(3));
+                ord.setPricePerPound(Double.parseDouble(cursor.getString(4)));
+                ord.setTotalWeight(Double.parseDouble(cursor.getString(5)));
+                ord.setAmountPaid(Double.parseDouble(cursor.getString(6)));
+                // Adding contact to list
+                ordList.add(ord);
+            } while (cursor.moveToNext());
+        }
+        
+        db.close();
+     
+        // return contact list
+        return ordList;
+    }
+    
+    // Getting All Orders sorted by date
+    // Date is in epoch timestamp
+    public ArrayList<Order> getAllOrdersByBoat(String boatName) {
+    	ArrayList<Order> ordList = new ArrayList<Order>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_ORDERS + " WHERE " + KEY_NAME + " LIKE '%" + boatName + "%' ORDER BY " + KEY_DATE + " DESC";
+     
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+     
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Order ord = new Order();
+                ord.setReceiptNo(Integer.parseInt(cursor.getString(0)));
+                ord.setDate(Long.parseLong(cursor.getString(1)));
+                ord.setName(cursor.getString(2));
+                ord.setFishType(cursor.getString(3));
+                ord.setPricePerPound(Double.parseDouble(cursor.getString(4)));
+                ord.setTotalWeight(Double.parseDouble(cursor.getString(5)));
+                ord.setAmountPaid(Double.parseDouble(cursor.getString(6)));
+                // Adding contact to list
+                ordList.add(ord);
+            } while (cursor.moveToNext());
+        }
+        
+        db.close();
+     
+        // return contact list
+        return ordList;
+    }
      
     // Getting contacts Count
     public int getCustomerCount() {

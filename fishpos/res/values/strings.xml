@@ -19,15 +19,18 @@
     <string name="Add">Add</string>
     <string name="UAC">UAC</string>
     <string name="Plus">+</string>
-    <string name="title_activity_add_customer">AddCustomer</string>
+    <string name="title_activity_add_customer">Add Customer</string>
+    <string name="reportByDate">View All Sales By Date</string>
+    <string name="reportByBoat">View Sales By Boat</string>
+    <string name="enterBoatName">Enter Boat Name</string>
     <string name="selectFishType">Select Fish Type</string>
     <string name="Clear">Clear</string>
     <string name="CptName">Captain Name</string>
     <string name="CrewName">Crew Name</string>
     <string name="SIN">SIN</string>
-    
+    <string name="byDate">By Date</string>
     <string name="Update">Update</string>
-    
+    <string name="searchBoat">Search Boat</string>
     <string name="hundreds">100s</string>
     <string name="fifties">50s</string>
     <string name="twenties">20s</string>

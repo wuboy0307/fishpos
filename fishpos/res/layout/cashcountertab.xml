@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -96,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -144,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -192,6 +195,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -240,6 +244,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -298,6 +303,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -346,6 +352,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -394,6 +401,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -442,6 +450,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView
@@ -490,6 +499,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:maxLength="5"
+                android:imeOptions="actionDone"
                 android:inputType="number" />
 
             <TextView

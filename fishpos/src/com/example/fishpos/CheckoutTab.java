@@ -35,7 +35,7 @@ import android.content.res.Resources;
  
 public class CheckoutTab extends Fragment implements OnClickListener {
 	Button addButton, checkoutBtn;
-	TextView bNameField, output, tvDate, tvTotalPrice;
+	TextView bNameField, tvDate, tvTotalPrice;
 	Intent addCustIntent;
 	Spinner custSpinner, fishTypeSpinner;
 	ArrayList<Boat> custList;
@@ -70,7 +70,7 @@ public class CheckoutTab extends Fragment implements OnClickListener {
         checkoutBtn = (Button) rootView.findViewById(R.id.checkout);
         custSpinner = (Spinner) rootView.findViewById(R.id.custSpinner);
         fishTypeSpinner = (Spinner) rootView.findViewById(R.id.fishTypeSpinner);
-        output = (TextView) rootView.findViewById(R.id.output);
+        //output = (TextView) rootView.findViewById(R.id.output);
         
         tvDate = (TextView) rootView.findViewById(R.id.currentDate);
         tvTotalPrice = (TextView) rootView.findViewById(R.id.totalPrice);
@@ -109,8 +109,8 @@ public class CheckoutTab extends Fragment implements OnClickListener {
             	
             	Boat boatSelected = (Boat) parentView.getItemAtPosition(position);
             	
-            	custOutput = "" + boatSelected.getBoatNo() + "-" + boatSelected.getBoatName();
-                output.setText(custOutput + "\t" + fishTypeOutput);
+            	//custOutput = "" + boatSelected.getBoatNo() + "-" + boatSelected.getBoatName();
+                //output.setText(custOutput + "\t" + fishTypeOutput);
                 
                 newSale.setName(boatSelected.getBoatName());
                 
@@ -135,8 +135,8 @@ public class CheckoutTab extends Fragment implements OnClickListener {
                 SpinnerFishType ft = (SpinnerFishType) parentView.getItemAtPosition(position);
             	//String FishType = parentView.getItemAtPosition(position).getText().toString();
                  
-                fishTypeOutput = "" + ft.getFishType();
-                output.setText(custOutput + "\t" + fishTypeOutput);
+                //fishTypeOutput = "" + ft.getFishType();
+                //output.setText(custOutput + "\t" + fishTypeOutput);
                 
                 newSale.setFishType(ft.getFishType());
                  
@@ -184,6 +184,7 @@ public class CheckoutTab extends Fragment implements OnClickListener {
                     chkoutMsg = newSale.toString();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Invalid Entry Field (PricePerPound/Weight)!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             	
             	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -216,9 +217,12 @@ public class CheckoutTab extends Fragment implements OnClickListener {
      
     				// create alert dialog
     				AlertDialog alertDialog = alertDialogBuilder.create();
-     
+    				
     				// show it
     				alertDialog.show();
+    				
+    				TextView tvDialog = (TextView) alertDialog.findViewById(android.R.id.message);
+    				tvDialog.setTextSize(40);
                 
             }
 
@@ -254,6 +258,7 @@ public class CheckoutTab extends Fragment implements OnClickListener {
             SpinnerFishType fishType1 = new SpinnerFishType();
             SpinnerFishType fishType2 = new SpinnerFishType();
             SpinnerFishType fishType3 = new SpinnerFishType();
+            SpinnerFishType fishType4 = new SpinnerFishType();
                  
           	/******* Firstly take data in model object ******/
             // Images taken from http://www.charterboatsbc.com/fish.html
@@ -267,11 +272,15 @@ public class CheckoutTab extends Fragment implements OnClickListener {
             fishType3.setFishType("Spring");
             fishType3.setImageFile(R.drawable.spring);
             
+            fishType4.setFishType("Chum");
+            fishType4.setImageFile(R.drawable.chum);
+            
             /******** Take Model Object in ArrayList **********/
             fishTypeList = new ArrayList<SpinnerFishType>();
             fishTypeList.add(fishType1);
             fishTypeList.add(fishType2);
             fishTypeList.add(fishType3);
+            fishTypeList.add(fishType4);
             
             // Resources passed to adapter to get image
             Resources res = getResources(); 

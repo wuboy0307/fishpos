@@ -5,99 +5,54 @@ import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.method.TextKeyListener;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
-import android.graphics.Color;
- 
-public class ReportTab extends Fragment {
-	TableLayout orderTable;
-	ArrayList<Order> allOrdersList;
+import android.widget.Toast;
+
+public class ReportByDate extends Activity {
+	TextView tvTotalAmountPaidByDate;
+	TableLayout orderTableByDate;
+	ArrayList<Order> allOrdersListByDate;
 	BigDecimal totalAmountPaid;
-	TextView tvTotalAmountPaid;
-	Button dateBtn, boatBtn;
-	Intent sortByDateIntent, sortByBoatIntent;
-	EditText etBoatName;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.reportbydate);
+		
+		tvTotalAmountPaidByDate = (TextView) findViewById(R.id.totalAmountPaidByDate);
+		orderTableByDate = (TableLayout) findViewById(R.id.orderTableByDate);
+		
+		buildTable();
+	}
 	
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.reporttab, container, false);
-        
-        orderTable = (TableLayout) rootView.findViewById(R.id.orderTable);
-        tvTotalAmountPaid = (TextView) rootView.findViewById(R.id.totalAmountPaid);
-        dateBtn = (Button) rootView.findViewById(R.id.sortOrdersByDate);
-        boatBtn = (Button) rootView.findViewById(R.id.searchBoat);
-        etBoatName = (EditText) rootView.findViewById(R.id.searchByBoatName);
-        
-        
-        buildTable();
-        
-        dateBtn.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                Activity activity = getActivity();
-                
-                sortByDateIntent = new Intent(activity, ReportByDate.class);
-                startActivityForResult(sortByDateIntent, 101);
-                //startActivity(addCustIntent);
-
-                /*if (activity != null) {
-                    Toast.makeText(activity, "test", Toast.LENGTH_LONG).show();
-                }*/
-            }
-
-        });
-        
-        boatBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Activity activity = getActivity();
-                
-                sortByBoatIntent = new Intent(activity, ReportByBoat.class);
-                sortByBoatIntent.putExtra("searchBoatName", "" + etBoatName.getText());
-                TextKeyListener.clear((etBoatName).getText());
-                startActivityForResult(sortByBoatIntent, 101);
-                //startActivity(addCustIntent);
-
-                /*if (activity != null) {
-                    Toast.makeText(activity, "test", Toast.LENGTH_LONG).show();
-                }*/
-            }
-
-        });
-        
-        return rootView;
-    }
     
     private void buildTable() {
-    	
+    	Context context = getApplicationContext();
         // database handler
-        DatabaseHandler db = new DatabaseHandler(getActivity());
+        DatabaseHandler db = new DatabaseHandler(context);
  
         // Spinner Drop down elements
-        allOrdersList = db.getAllOrders();
+        allOrdersListByDate = db.getAllOrdersByDate();
         
-        TableRow tr_head = new TableRow(getActivity());
+        TableRow tr_head = new TableRow(context);
         tr_head.setId(24);
         tr_head.setBackgroundColor(Color.DKGRAY);
         
-        TextView headReceiptNo = new TextView(getActivity());
+        TextView headReceiptNo = new TextView(context);
         headReceiptNo.setId(25);
         headReceiptNo.setText("Receipt #");
         headReceiptNo.setTextColor(Color.WHITE);
@@ -105,7 +60,7 @@ public class ReportTab extends Fragment {
         headReceiptNo.setPadding(5, 5, 5, 5);
         tr_head.addView(headReceiptNo);// add the column to the table row here
         
-        TextView headDate = new TextView(getActivity());
+        TextView headDate = new TextView(context);
         headDate.setId(25);
         headDate.setText("Date");
         headDate.setTextColor(Color.WHITE);
@@ -113,7 +68,7 @@ public class ReportTab extends Fragment {
         headDate.setPadding(5, 5, 5, 5);
         tr_head.addView(headDate);// add the column to the table row here
         
-        TextView headBoatName = new TextView(getActivity());
+        TextView headBoatName = new TextView(context);
         headBoatName.setId(25);
         headBoatName.setText("Boat Name");
         headBoatName.setTextColor(Color.WHITE);
@@ -121,7 +76,7 @@ public class ReportTab extends Fragment {
         headBoatName.setPadding(5, 5, 5, 5);
         tr_head.addView(headBoatName);// add the column to the table row here
         
-        TextView headFishType = new TextView(getActivity());
+        TextView headFishType = new TextView(context);
         headFishType.setId(25);
         headFishType.setText("Fish Type");
         headFishType.setTextColor(Color.WHITE);
@@ -129,7 +84,7 @@ public class ReportTab extends Fragment {
         headFishType.setPadding(5, 5, 5, 5);
         tr_head.addView(headFishType);// add the column to the table row here
         
-        TextView headPrice = new TextView(getActivity());
+        TextView headPrice = new TextView(context);
         headPrice.setId(25);
         headPrice.setText("Price/lb");
         headPrice.setTextColor(Color.WHITE);
@@ -137,7 +92,7 @@ public class ReportTab extends Fragment {
         headPrice.setPadding(5, 5, 5, 5);
         tr_head.addView(headPrice);// add the column to the table row here
         
-        TextView headWeight = new TextView(getActivity());
+        TextView headWeight = new TextView(context);
         headWeight.setId(25);
         headWeight.setText("Weight (lbs)");
         headWeight.setTextColor(Color.WHITE);
@@ -145,7 +100,7 @@ public class ReportTab extends Fragment {
         headWeight.setPadding(5, 5, 5, 5);
         tr_head.addView(headWeight);// add the column to the table row here
         
-        TextView headAmountPaid = new TextView(getActivity());
+        TextView headAmountPaid = new TextView(context);
         headAmountPaid.setId(25);
         headAmountPaid.setText("Amount Paid");
         headAmountPaid.setTextColor(Color.WHITE);
@@ -153,7 +108,7 @@ public class ReportTab extends Fragment {
         headAmountPaid.setPadding(5, 5, 5, 5);
         tr_head.addView(headAmountPaid);// add the column to the table row here
         
-        orderTable.addView(tr_head);
+        orderTableByDate.addView(tr_head);
         
         int count = 0;
         
@@ -161,21 +116,21 @@ public class ReportTab extends Fragment {
         
         BigDecimal amtPaid = new BigDecimal("0");
         
-        for(int i=0;i < allOrdersList.size(); i++)
+        for(int i=0;i < allOrdersListByDate.size(); i++)
         {
-        	TableRow row = new TableRow(getActivity());
+        	TableRow row = new TableRow(context);
         	
         	row.setBackgroundColor(Color.LTGRAY);
         	
-            int receiptNo = allOrdersList.get(i).getReceiptNo();
-            long date = allOrdersList.get(i).getDate();
-            String name = allOrdersList.get(i).getName();
-            String fishType = allOrdersList.get(i).getFishType();
-            double pricePerPound = allOrdersList.get(i).getPricePerPound();
-            double weight = allOrdersList.get(i).getTotalWeight();
-            double amountPaid = allOrdersList.get(i).getAmountPaid();
+            int receiptNo = allOrdersListByDate.get(i).getReceiptNo();
+            long date = allOrdersListByDate.get(i).getDate();
+            String name = allOrdersListByDate.get(i).getName();
+            String fishType = allOrdersListByDate.get(i).getFishType();
+            double pricePerPound = allOrdersListByDate.get(i).getPricePerPound();
+            double weight = allOrdersListByDate.get(i).getTotalWeight();
+            double amountPaid = allOrdersListByDate.get(i).getAmountPaid();
             
-            amtPaid = new BigDecimal("" + allOrdersList.get(i).getAmountPaid());
+            amtPaid = new BigDecimal("" + allOrdersListByDate.get(i).getAmountPaid());
             
             totalAmountPaid = totalAmountPaid.add(amtPaid);
             
@@ -183,31 +138,31 @@ public class ReportTab extends Fragment {
             String dateFormatted = sdf.format(new Date(date*1000));
             
             
-            TextView tvReceiptNo = new TextView(getActivity());
+            TextView tvReceiptNo = new TextView(context);
             tvReceiptNo.setTextColor(Color.BLACK);
             tvReceiptNo.setTextSize(18);
             tvReceiptNo.setText("" + receiptNo);
-            TextView tvDate = new TextView(getActivity());
+            TextView tvDate = new TextView(context);
             tvDate.setTextColor(Color.BLACK);
             tvDate.setTextSize(18);
             tvDate.setText(dateFormatted);
-            TextView tvName = new TextView(getActivity());
+            TextView tvName = new TextView(context);
             tvName.setTextColor(Color.BLACK);
             tvName.setTextSize(18);
             tvName.setText(name);
-            TextView tvFishType = new TextView(getActivity());
+            TextView tvFishType = new TextView(context);
             tvFishType.setTextColor(Color.BLACK);
             tvFishType.setTextSize(18);
             tvFishType.setText(fishType);
-            TextView tvPricePerPound = new TextView(getActivity());
+            TextView tvPricePerPound = new TextView(context);
             tvPricePerPound.setTextColor(Color.BLACK);
             tvPricePerPound.setTextSize(18);
             tvPricePerPound.setText(String.format("$%.2f", pricePerPound));
-            TextView tvWeight = new TextView(getActivity());
+            TextView tvWeight = new TextView(context);
             tvWeight.setTextColor(Color.BLACK);
             tvWeight.setTextSize(18);
             tvWeight.setText(String.valueOf(weight));
-            TextView tvAmountPaid = new TextView(getActivity());
+            TextView tvAmountPaid = new TextView(context);
             tvAmountPaid.setTextColor(Color.BLACK);
             tvAmountPaid.setTextSize(18);
             tvAmountPaid.setText(String.format("$%.2f", amountPaid));
@@ -220,14 +175,12 @@ public class ReportTab extends Fragment {
             row.addView(tvWeight);
             row.addView(tvAmountPaid);
             
-            orderTable.addView(row);
+            orderTableByDate.addView(row);
             count++;
         }
         
         totalAmountPaid.setScale(2, RoundingMode.HALF_EVEN);
         
-        tvTotalAmountPaid.setText("Total Amount Paid \t $" + String.format("%.2f", totalAmountPaid.doubleValue()));
- 
+        tvTotalAmountPaidByDate.setText("Total Amount Paid \t $" + String.format("%.2f", totalAmountPaid.doubleValue()));
     }
- 
 }

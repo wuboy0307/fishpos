@@ -3,7 +3,7 @@
  android:id="@+id/cust_view"  
     android:layout_width="wrap_content" 
     android:textColor="@color/black"
-    android:textSize="12sp"
+    android:textSize="20sp"
     android:layout_height="36dp" 
     android:width="300dp"
     android:gravity="left|center_vertical"/> 

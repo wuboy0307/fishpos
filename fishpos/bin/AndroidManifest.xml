@@ -27,6 +27,14 @@
             android:name=".AddCustomer"
             android:label="@string/title_activity_add_customer" >
         </activity>
+        <activity
+            android:name=".ReportByDate"
+            android:label="@string/reportByDate" >
+        </activity>
+        <activity
+            android:name=".ReportByBoat"
+            android:label="@string/reportByBoat" >
+        </activity>
     </application>
 
 </manifest>
